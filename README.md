@@ -6,7 +6,7 @@ This is a simple Rails app showing how to use [`graphql-remote_loader`](https://
 
 ## Important files
 
-There are four relevant files when it comes to understanding how `graphql-remote_loader` is used. To learn how the example app works, read the inline comments in each file,
+There are four relevant files when it comes to understanding how `graphql-remote_loader` is used. To learn how the example app works, read the inline comments in each file: (inline comments TODO)
 
 1. http://github.com/d12/graphql-remote_loader_example/blob/master/app/graphql/types/query_type.rb
 2. https://github.com/d12/graphql-remote_loader_example/blob/master/app/graphql/loaders/github_loader.rb
