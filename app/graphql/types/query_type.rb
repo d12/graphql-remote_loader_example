@@ -1,7 +1,7 @@
 require_relative "../loaders/github_loader"
 
 class Types::QueryType < Types::BaseObject
-  field :login, String, null: false, description: "The currently authenticated GitHub user's login."
+  field :login, String, null: true, description: "The currently authenticated GitHub user's login."
 
   def login
     GitHubLoader.load("viewer { login }").then do |results|
@@ -9,7 +9,7 @@ class Types::QueryType < Types::BaseObject
     end
   end
 
-  field :is_famous, Boolean, null: false, description: "Is the user famous?"
+  field :is_famous, Boolean, null: true, description: "Is the user famous?"
 
   def is_famous
     query = <<~GRAPHQL
@@ -37,7 +37,7 @@ class Types::QueryType < Types::BaseObject
     end
   end
 
-  field :repository_count, Integer, null: false, description: "The total number of owner repositories that the user has."
+  field :repository_count, Integer, null: true, description: "The total number of owner repositories that the user has."
 
   def repository_count
     GitHubLoader.load("viewer { repositories(affiliations: OWNER) { totalCount } }").then do |results|
@@ -45,7 +45,7 @@ class Types::QueryType < Types::BaseObject
     end
   end
 
-  field :issue_count, Integer, null: false, description: "The total number of issues the user has authored."
+  field :issue_count, Integer, null: true, description: "The total number of issues the user has authored."
 
   def issue_count
     GitHubLoader.load("viewer { issues { totalCount } }").then do |results|
@@ -53,7 +53,7 @@ class Types::QueryType < Types::BaseObject
     end
   end
 
-  field :pull_request_count, Integer, null: false, description: "The total number of pull requests the user has authored."
+  field :pull_request_count, Integer, null: true, description: "The total number of pull requests the user has authored."
 
   def pull_request_count
     GitHubLoader.load("viewer { pullRequests { totalCount } }").then do |results|
