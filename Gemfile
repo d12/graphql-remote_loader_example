@@ -8,7 +8,7 @@ gem 'sqlite3'
 gem 'puma', '~> 3.11'
 gem 'bootsnap'
 
-gem 'graphql-remote_loader', '~> 0.0.5'
+gem 'graphql-remote_loader', '~> 1.0.0'
 gem 'graphql-client'
 
 group :development, :test do

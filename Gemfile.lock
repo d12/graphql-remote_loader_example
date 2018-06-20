@@ -63,7 +63,7 @@ GEM
     graphql-client (0.12.3)
       activesupport (>= 3.0, < 6.0)
       graphql (~> 1.6)
-    graphql-remote_loader (0.0.5)
+    graphql-remote_loader (1.0.0)
       graphql (~> 1.6)
       graphql-batch (~> 0.3)
     i18n (1.0.1)
@@ -151,7 +151,7 @@ DEPENDENCIES
   byebug
   graphiql-rails
   graphql-client
-  graphql-remote_loader (~> 0.0.5)
+  graphql-remote_loader (~> 1.0.0)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)
   rails (~> 5.2.0)
