@@ -5,7 +5,7 @@ class Types::QueryType < Types::BaseObject
 
   def login
     GitHubLoader.load("viewer { login }").then do |results|
-      results["data"]["viewer"]["login"]
+      results["data"]["viewer"]["login"] unless results["errors"]
     end
   end
 
@@ -28,6 +28,7 @@ class Types::QueryType < Types::BaseObject
     GRAPHQL
 
     GitHubLoader.load(query).then do |results|
+      next nil if results["errors"]
       # We define "famous" as either >5000 followers,
       # or a repo with >5000 stars
       follower_count = results["data"]["viewer"]["followers"]["total_count"].to_i
@@ -41,7 +42,7 @@ class Types::QueryType < Types::BaseObject
 
   def repository_count
     GitHubLoader.load("viewer { repositories(affiliations: OWNER) { totalCount } }").then do |results|
-      results["data"]["viewer"]["repositories"]["total_count"]
+      results["data"]["viewer"]["repositories"]["total_count"] unless results["errors"]
     end
   end
 
@@ -49,7 +50,7 @@ class Types::QueryType < Types::BaseObject
 
   def issue_count
     GitHubLoader.load("viewer { issues { totalCount } }").then do |results|
-      results["data"]["viewer"]["issues"]["total_count"]
+      results["data"]["viewer"]["issues"]["total_count"] unless results["errors"]
     end
   end
 
@@ -57,7 +58,7 @@ class Types::QueryType < Types::BaseObject
 
   def pull_request_count
     GitHubLoader.load("viewer { pullRequests { totalCount } }").then do |results|
-      results["data"]["viewer"]["pull_requests"]["total_count"]
+      results["data"]["viewer"]["pull_requests"]["total_count"] unless results["errors"]
     end
   end
 end
