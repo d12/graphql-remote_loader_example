@@ -4,6 +4,16 @@ class Types::QueryType < Types::BaseObject
   field :login, String, null: true, description: "The currently authenticated GitHub user's login."
 
   def login
+    # This is the main method that `graphql-remote_loader` exposes.
+    # #load runs a GraphQL query against the remote API asynchronously
+    # and yields the result JSON to the given block.
+    # 
+    # In the backend, the query sent to the remote API may include more
+    # selections than present here, but the `results` hash yielded here
+    # only includes results that were selected in this query.
+    #
+    # In addition, `results["errors"]` only includes errors that occured
+    # while resolving fields selected in this query.
     GitHubLoader.load("viewer { login }").then do |results|
       results["data"]["viewer"]["login"] unless results["errors"]
     end

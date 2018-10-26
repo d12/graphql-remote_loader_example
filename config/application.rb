@@ -4,22 +4,16 @@ require 'rails/all'
 
 require "graphql/client/http"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module GraphqlRemoteLoaderExample
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
   end
 
-  HTTPAdapter = GraphQL::Client::HTTP.new("https://api.github.com/graphql") do
+  # Defining the GraphQL::Client HTTP adapter and client that we use in app/graphql/loader/github_loader.rb
+  # This can be swapped out with any other way of querying a remote GraphQL API.
+  GitHubHTTPAdapter = GraphQL::Client::HTTP.new("https://api.github.com/graphql") do
     def headers(context)
       {
         "Authorization" => "Bearer #{ENV["TOKEN"]}"
@@ -29,7 +23,7 @@ module GraphqlRemoteLoaderExample
 
   ::GitHubClient = GraphQL::Client.new(
     schema: Application.root.join("db/graphql_schema.json").to_s,
-    execute: GraphqlRemoteLoaderExample::HTTPAdapter
+    execute: GraphqlRemoteLoaderExample::GitHubHTTPAdapter
   )
 
   GitHubClient.allow_dynamic_queries = true
